@@ -1,6 +1,11 @@
 package com.github.smirzaei.urlpreview.domain.twitter
 
-sealed class TwitterCard {
+import com.github.smirzaei.urlpreview.domain.LinkUrlPreview
+import com.github.smirzaei.urlpreview.domain.UrlPreview
+import com.github.smirzaei.urlpreview.domain.UrlPreviewMappable
+import com.github.smirzaei.urlpreview.domain.VideoUrlPreview
+
+sealed class TwitterCard : UrlPreviewMappable {
     abstract val card: TwitterCardType
     abstract val site: String?
     abstract val title: String
@@ -14,7 +19,21 @@ data class TwitterSummaryCard(
         override val description: String?,
         val image: String?,
         val imageAlt: String?
-) : TwitterCard()
+) : TwitterCard() {
+    override fun toUrlPreview(): UrlPreview {
+        return LinkUrlPreview(
+                title,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        )
+    }
+}
 
 data class TwitterPlayerCard(
         override val card: TwitterCardType = TwitterCardType.PLAYER,
@@ -28,7 +47,24 @@ data class TwitterPlayerCard(
         val imageAlt: String?,
         val playerStream: String?,
         val playerStreamContentType: String?
-) : TwitterCard()
+) : TwitterCard() {
+    override fun toUrlPreview(): UrlPreview {
+        return VideoUrlPreview(
+                title,
+                null,
+                null,
+                null,
+                null,
+                null,
+                image,
+                null,
+                null,
+                player,
+                playerWidth,
+                playerHeight
+        )
+    }
+}
 
 data class TwitterAppCard(
         override val card: TwitterCardType = TwitterCardType.APP,
@@ -42,4 +78,18 @@ data class TwitterAppCard(
         val ipadCustomUrlScheme: String?,
         val googlePlayCustomUrlScheme: String?,
         val appCountry: String?
-) : TwitterCard()
+) : TwitterCard() {
+    override fun toUrlPreview(): UrlPreview {
+        return LinkUrlPreview(
+                title,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        )
+    }
+}

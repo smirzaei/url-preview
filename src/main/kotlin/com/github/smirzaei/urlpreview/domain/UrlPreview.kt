@@ -16,7 +16,6 @@ sealed class UrlPreview {
 }
 
 data class PhotoUrlPreview(
-        override val type: OEmbedType = OEmbedType.PHOTO,
         override val title: String?,
         override val authorName: String?,
         override val authorUrl: String?,
@@ -30,10 +29,11 @@ data class PhotoUrlPreview(
         val url: String,
         val width: Int,
         val height: Int
-) : UrlPreview()
+) : UrlPreview() {
+    override val type: OEmbedType = OEmbedType.PHOTO
+}
 
 data class VideoUrlPreview(
-        override val type: OEmbedType = OEmbedType.VIDEO,
         override val title: String?,
         override val authorName: String?,
         override val authorUrl: String?,
@@ -47,10 +47,11 @@ data class VideoUrlPreview(
         val html: String,
         val width: Int,
         val height: Int
-) : UrlPreview()
+) : UrlPreview() {
+    override val type: OEmbedType = OEmbedType.VIDEO
+}
 
 data class LinkUrlPreview(
-        override val type: OEmbedType = OEmbedType.LINK,
         override val title: String?,
         override val authorName: String?,
         override val authorUrl: String?,
@@ -60,10 +61,11 @@ data class LinkUrlPreview(
         override val thumbnailUrl: String?,
         override val thumbnailWidth: String?,
         override val thumbnailHeight: String?
-) : UrlPreview()
+) : UrlPreview() {
+    override val type: OEmbedType = OEmbedType.LINK
+}
 
 data class RichUrlPreview(
-        override val type: OEmbedType = OEmbedType.RICH,
         override val title: String?,
         override val authorName: String?,
         override val authorUrl: String?,
@@ -77,4 +79,6 @@ data class RichUrlPreview(
         val html: String,
         val width: Int,
         val height: Int
-) : UrlPreview()
+) : UrlPreview() {
+    override val type: OEmbedType = OEmbedType.RICH
+}
